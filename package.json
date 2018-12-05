@@ -1,0 +1,23 @@
+{
+  "name": "blogpost-api",
+  "version": "1.0.0",
+  "description": "exercise to practice routing",
+  "main": "blogRouter.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MissyM2/blogpost-api.git"
+  },
+  "author": "Missy Maloney",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MissyM2/blogpost-api/issues"
+  },
+  "homepage": "https://github.com/MissyM2/blogpost-api#readme",
+  "dependencies": {
+    "uuid": "^3.3.2"
+  }
+}
