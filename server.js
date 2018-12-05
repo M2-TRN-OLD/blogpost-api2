@@ -11,6 +11,7 @@ app.use(morgan('common'));
 app.use(express.static('public'));
 
 app.get('/', (req, res) => {
+    console.log(req.body);
     res.json({message:'this is the route endpoint'});
     //res.json(BlogPosts.get());
     //res.sendFile(__dirname + '/views/index.html');
