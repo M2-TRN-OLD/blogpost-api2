@@ -19,6 +19,7 @@ BlogPosts.create(
 
 // I am sening back JSON representation of all blogposts on the GET requests to the root
 router.get('/', (req, res) => {
+    //res.json({message:'this is the route inside th router'});
     res.json(BlogPosts.get());
 });
 
@@ -27,6 +28,7 @@ router.get('/', (req, res) => {
 //  If all required fields are there, add the new item and return it with status 201.
 router.post('/', jsonParser, (req, res) => {
     //ensure `blogpost` is in the request body
+    console.log('did i make it past post?');
     const requiredFields = ['blogpost'];
     for(let i = 0; i < requiredFields.length; i++) {
         const field = requiredFields[i];
@@ -36,7 +38,7 @@ router.post('/', jsonParser, (req, res) => {
             return res.status(400).send(message);
         }
     }
-    const item = Recipes.create(req.body.blogpost);
+    const item = BlogPosts.create(req.body.blogpost);
     res.status(201).json(item);
 });
 
