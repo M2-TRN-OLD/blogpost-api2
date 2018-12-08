@@ -10,6 +10,7 @@ const {app, runServer, closeServer} = require("../server");
 //  We use the expect function as a starting point for 
 //  chaining other keywords like be and contain.  It is part of the chai listing of functions.
 const expect = chai.expect;
+chai.use(chaiHttp);
 
 //  we use `describe` to create the structure for our tests.  `it` is the actual test.
 describe("BlogPosts", function() {
@@ -63,7 +64,7 @@ describe("BlogPosts", function() {
               expect(res.body).to.include.keys("title", "content", "author");
               expect(res.body.id).to.not.equal(null);
               expect(res.body).to.deep.equal(
-                  Objecct.assign(newItem, {id:res.body.id})
+                  Object.assign(newItem, {id:res.body.id})
               );
           });
     });
