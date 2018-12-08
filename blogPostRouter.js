@@ -1,16 +1,22 @@
+//  we need to require the use of express framework
 const express = require('express');
+
+//  we need to require the use of the express router class to create router handlers.
 const router = express.Router();
 
+//  we need to requred the use of the node package body-parser, which is a middleware for
+// breaking up and selecting portions of the body of a request.
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 
+//  we will use the data models described in ./models.js and call them BlogPosts
 const {BlogPosts} = require('./models');
 //title: title,
 //      content: content,
  //     author: author,
 
 
-// I am adding some starter blogs.
+// I am adding some seed data.
 BlogPosts.create(
     'crafts', 'I love crafts.  I love to paint and paste and glitter.', 'JDL'
 );
@@ -21,9 +27,10 @@ BlogPosts.create(
     'cooking', 'I am more into cooking.  Wow, I just love to make big pots of pasta sauce.', 'JFM'
 );
 
-// I am sening back JSON representation of all blogposts on the GET requests to the root
+// I am sending back JSON representation of all blogposts on the GET requests to the root
 router.get('/', (req, res) => {
     //res.json({message:'this is the route inside th router'});
+    //I want the response object to be in JSON format.  Please use the data model 'get' in BlogPosts.
     res.json(BlogPosts.get());
 });
 
@@ -35,7 +42,7 @@ router.post('/', jsonParser, (req, res) => {
     for(let i = 0; i < requiredFields.length; i++) {
         const field = requiredFields[i];
         if (!(field in req.body)) {
-            const message = `Missy \`${field}\` in request body`;
+            const message = `no \`${field}\` in request body`;
             console.error(message);
             return res.status(400).send(message);
         }
