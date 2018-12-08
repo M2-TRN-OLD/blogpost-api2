@@ -78,23 +78,13 @@ describe("BlogPosts", function() {
     //  6.  further, inspect object body to make sure it is an object and that
     //      it is deep equal to updataData(???)
     it("PUT should make a change to an existing record in the database", function() {
-        const updateData = {
-            title: "crafts - knitting", 
-            content:  "I love crafts, but only knitting",
-            author:  "JDL"
-        };
+        const badRequestData = {};
         return chai
           .request(app)
           .get("/blog-posts")
-          .then(function(res){
-              updateData.id = res.body[0].id;
-              return chai
-                .request(app)
-                .put(`/blog-posts/${updateData.id}`)
-                .send(updateData);
-          })
+          .send(badRequestData)
           .then(function(res) {
-              expect(res).to.have.status(204);
+              expect(res).to.have.status(400);
           });
     });
 
