@@ -26,7 +26,7 @@ describe("BlogPosts", function() {
     //  2.  inspect response object for correct status and json format
     //  3.  further inspect that the res.body is and array, at least 1 item,
     //      has all expected keys and they are within an object.
-    interface("GET request should return an array of blogposts", function() {
+    it("GET request should return an array of blogposts", function() {
         return chai
           .request(app)
           .get("/blog-posts")
