@@ -64,7 +64,7 @@ describe("BlogPosts", function() {
               expect(res.body).to.include.keys("title", "content", "author");
               expect(res.body.id).to.not.equal(null);
               expect(res.body).to.deep.equal(
-                  Object.assign(newItem, {id:res.body.id})
+                  Object.assign(newItem, {id:res.body.id, publishDate:res.body.publishDate})
               );
           });
     });
@@ -78,24 +78,33 @@ describe("BlogPosts", function() {
     //  6.  further, inspect object body to make sure it is an object and that
     //      it is deep equal to updataData(???)
     it("PUT should make a change to an existing record in the database", function() {
-        const badRequestData = {};
+        const updateData = {title: "my second day", content: "my feet are still killing me", author:"FDM"};
         return chai
           .request(app)
           .get("/blog-posts")
-          .send(badRequestData)
           .then(function(res) {
-              expect(res).to.have.status(400);
+              updateData.id=res.body[0].id;
+              return chai
+                .request(app)
+                .put(`/blog-posts/${updateData.id}`)
+                .send(updateData)
+          })
+          .then(function(res) {
+              expect(res).to.have.status(204);
           });
     });
 
     //  test strategy for DELETE request:
     //  1.  make a GET reqeust to recipes in order to find the proper record with the proper id
     //  2.  make the DELETE reqeust and make sure that we return a status 204.
-    if("DELETE should delte an existing blogpost in the database", function () {
+    it("DELETE should delte an existing blogpost in the database", function () {
         return (
             chai
               .request(app)
               .get("/blog-posts")
+              .then(function(res) {
+                  return chai.request(app).delete(`/blog-posts/${res.body[0].id}`);
+              })
               .then(function(res) {
                   expect(res).to.have.status(204);
               })
